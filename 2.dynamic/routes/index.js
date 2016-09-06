@@ -5,7 +5,7 @@
  */
 var fs = require('fs');
 module.exports = function(app){
-   //因为当前目录是2.dynamic
+   //fs读文件的时候，以是运行的模块所在的目录为出发点
    var dirs = fs.readdirSync('./routes');
    dirs.forEach(function(dir){
       // 在加载模块的时候，.代表当前此模块所在的目录
