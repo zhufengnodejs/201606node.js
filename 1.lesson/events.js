@@ -16,13 +16,14 @@ EventEmitter.prototype.on = function(type,listener){
 }
 //发射事件
 EventEmitter.prototype.emit = function(type){
+    var arg=Array.prototype.slice.call(arguments,1);
     //先取出事件对象中对此事件的监听函数数组
     var listeners = this._events[type];
     //如果有值的话
     if(listeners){
         //循环迭代此数组并依次执行
         for(var i=0;i<listeners.length;i++){
-            listeners[i]();
+            listeners[i].apply(null,arg);
         }
     }
 }
