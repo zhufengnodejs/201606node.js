@@ -1,6 +1,11 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var app = express();
+//使用bodyparser之后会在 req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(__dirname));
 var routes = require('./routes');
 app.get('/',function(req,res){
     //sendFile参数必须是一个绝对路径
