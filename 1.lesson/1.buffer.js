@@ -66,16 +66,22 @@ console.log(chars[57]+chars[11]+chars[34]+chars[45]);
     return result;
 }*/
 function toBase64 (str) {
+    //先初始化字符数组 最终返回的结果是这些字符组成的
     var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
+    //通过字符串构建buffer
     var buffer=new Buffer(str);
     var str='';
     for (var i=0;i<buffer.length;i++) {
+        //把buffer中的值转成二进制字符串 拼在一起
         var a= buffer[i].toString(2);
         str+=a;
     }
     //中国 6个字节 48位  48/6=8
     var result='';
     str=str.replace(/\d{6}/g,function  (matched) {
+        // matched是六位一组的字符子串
+        // parseInt负责把它们转成10进制数
+        // chars从字符数组按索引取出对应的字符 拼在一起
         result+=chars[parseInt(matched,2)];
     })
     return result;
