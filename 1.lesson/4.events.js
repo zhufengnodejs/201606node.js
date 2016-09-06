@@ -4,6 +4,7 @@ function Girl(){
     EventEmitter.call(this);
 }
 util.inherits(Girl,EventEmitter);
+//Object.setPrototypeOf(ctor.prototype, superCtor.prototype);
 var girlGod = new Girl();
 function Boy(){
 }
