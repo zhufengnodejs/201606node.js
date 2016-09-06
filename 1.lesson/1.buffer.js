@@ -78,7 +78,7 @@ function toBase64 (str) {
     }
     //中国 6个字节 48位  48/6=8
     var result='';
-    str=str.replace(/\d{6}/g,function  (matched) {
+    str.replace(/\d{6}/g,function  (matched) {
         // matched是六位一组的字符子串
         // parseInt负责把它们转成10进制数
         // chars从字符数组按索引取出对应的字符 拼在一起
