@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<%= name %>
+<% books.forEach(
+function(book){ %>
+<div>
+    <%= book.name %>
+</div>
+<% });
+%>
+</body>
+</html>

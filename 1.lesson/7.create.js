@@ -24,7 +24,7 @@ function makep(dir){
     var index = 1;
     make();
     function make(){
-        if(index>pathname.length)
+        if(index>pathname.length)//如果index 大于数组长请表示创建完成
             return;
         //依次获取至上而下的子目录
        var subDir = pathname.slice(0,index++).join(path.sep);
@@ -40,4 +40,4 @@ function makep(dir){
 }
 //异步逆向
 
-makep(path.join('a','b','c'));
+makep(path.join('a','b','c','d','e','f','g'));
