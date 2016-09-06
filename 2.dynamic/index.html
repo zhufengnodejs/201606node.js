@@ -3,36 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>珠峰书店</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="./public/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body style="margin-top: 30px">
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <button class="btn btn-primary">增加用户</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">增加用户</button>
         </div>
         <div class="panel-body">
-            <table class="table table-responsive">
-                <thead>
-                    <th>
+            <table class="table table-bordered text-center" >
+                    <tr>
                         <td>用户ID</td>
                         <td>姓名</td>
                         <td>操作</td>
-                    </th>
-                </thead>
+                    </tr>
                 <tbody>
-
+                <tr>
+                    <td>1</td>
+                    <td>张三</td>
+                    <td>
+                        <button class="btn btn-warning">修改用户</button>
+                        <button class="btn btn-danger">删除用户</button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        <div class="panel-footer">
-
-        </div>
     </div>
 </div>
+<div class="modal fade" id="addUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">用户管理</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>
+<script>
+    //增加用户
+    /**
+     * 1. 弹出模态窗口，输入姓名
+     * 2. 获取姓名并提交到后台接口
+     * 3. 后台接口把此用户保存到文件系统中，返回保存后的用户
+     *
+     */
+    function addUser(){
+
+    }
+</script>
 </html>
