@@ -93,6 +93,30 @@ app.delete('/users',function(req,res){
         }
     })
 });
+//更新用户
+app.put('/users',function(req,res){
+    var user = req.body;// user= {id:1,name:'张三3'}
+    getUsers(function(err,users){
+        if(err)
+            res.sendError(err);
+        else{
+            users = users.map(function(item){
+                if(item.id == user.id){
+                    return user;
+                }else{
+                    return item;
+                }
+            });
+             //把更新后的数组保存一下
+            setUsers(users,function(err){
+                if(err)
+                    res.sendError(err);
+                else
+                    res.send(user);//如果没错误则发送空对象到客户端
+            })
+        }
+    })
+});
 
 //获取我们文件系统中保存的所有用户
 //如果是异步方法，它是没有返回值，需要提供一个回调函数在内部会在任务完成后调用回调函数，并把结果传给回调函数
