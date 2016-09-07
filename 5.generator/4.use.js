@@ -34,7 +34,7 @@ function readFile(filename) {
         fs.readFile(filename,'utf8',callback)
     }
 }
-function* generator(){
+function* generator(){//声明一个生成器
     var first = yield readFile('1.txt');//2.txt
     var second = yield readFile(first);//3.txt
     var third = yield readFile(second);//3
@@ -46,11 +46,11 @@ function* generator(){
  */
 function co(gene){
    var it = gene();//执行生成器，得到迭代器
-   next();
-   function next(err,data){
+    callback();
+   function callback(err,data){
        var result = it.next(data);
        if(!result.done){
-           result.value(next);
+           result.value(callback);
        }
    }
 }
