@@ -26,8 +26,19 @@ app.get('/users',function(req,res){
     getUsers(function(err,users){
         if(err)
            res.sendError(err);
-        else
-           res.send(users);
+        else{
+            //取得查询字符串中的ID属性
+            var id = req.query.id;
+            if(id){//如果ID有值，表示查询单个用户
+                //在原来的数组中查找此用户
+                var user = users.find(function(item){
+                    return item.id == id;
+                })
+                res.send(user);//把找到的用户返回给客户端
+            }else
+                res.send(users);
+        }
+
     });
 });
 
