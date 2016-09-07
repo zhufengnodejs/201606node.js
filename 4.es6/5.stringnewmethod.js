@@ -70,15 +70,52 @@ function sum(a,b){
 }
 console.log(sum(1,2,3,4,5));
 
-Array.prototype.reduce = function(reducer,initVal){
-
-}
-var args = [1,2,3];
+/*Array.prototype.reduce = function(reducer,initVal){
+    for(var i=0;i<this.length;i++){
+        initVal = reducer(initVal,this[i],i,this);
+    }
+    return initVal;
+}*/
+var args = [1,5,3];
 //把数组中的所有的元素依次传入函数中
 //第一次的时候 curr=初始值 item为数组中的第一个元素
 //第二次的时候 curr=上一次函数执行的返回值 item为数组中的第二个元素
 //第三次的时候 curr=上一次函数执行的返回值 item为数组中的第三个元素
-var result = args.reduce(function(curr,item){
+var result = args.reduce(function(curr,item,index,arr){
     return curr + item;
-},5);
+},0);
 console.log(result);
+//如果没有初始值的话，第一次执行会把第一个元素放curr,第二个元素放item
+var max = args.reduce(function(curr,item){
+    return item>curr?item:curr;
+});
+console.log(max);
+//创建长度为3的数组，值为空
+console.log(Array(3,4));
+//创建一个长度为1的数组，值为3
+console.log(Array.of(3,4));
+
+var arr3 = ['a','b','c','d','e'];
+console.log(arr3.copyWithin(1,3,4));
+// a d c d e
+Array.prototype.find = function(fn){
+    for(var i=0;i<this.length;i++){
+        if(fn(this[i]))
+           return this[i];
+    }
+}
+Array.prototype.findIndex = function(fn){
+    for(var i=0;i<this.length;i++){
+        if(fn(this[i]))
+            return i;
+    }
+}
+var item = arr3.find(item=>item == 'c');
+console.log(item);
+var index = arr3.findIndex(item=>item == 'c');
+console.log(index);
+
+var arr4 = Array(4);
+arr4.fill('a',2);
+console.log(arr4);
+
