@@ -132,8 +132,13 @@ function getUsers(callback){
        if(exists){//如果存在，则读取文件内容
             fs.readFile(USER_FILE,'utf8',function(err,data){
                 //把文件的内容转成JSON数组
-            var users = JSON.parse(data);
-                callback(err,users);
+                try{
+                    users = JSON.parse(data);
+                    callback(err,users);
+                }catch(err){
+                    users = [];
+                    callback(err,users);
+                }
             })
        }else{
            callback(null,[]);
