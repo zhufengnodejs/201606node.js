@@ -67,6 +67,33 @@ app.post('/users',function(req,res){
    })
 
 });
+//删除用户
+// 1.查询原来的用户列表
+// 2. 删除要删除的用户
+// 3.把剩余的用户全部保存到文件系统中
+// 4 返回空元素
+app.delete('/users',function(req,res){
+    var id = req.query.id;
+    getUsers(function(err,users){
+        if(err)
+            res.sendError(err);
+        else{
+            //把要删除的删除掉,删除的元素返回false
+            // filter会返回一个新数组，原数组并不能被改变，所以重新覆盖
+            users = users.filter(function(item){
+                return item.id != id;
+            });
+            //把过滤后的数组保存一下
+            setUsers(users,function(err){
+                if(err)
+                    res.sendError(err);
+                else
+                    res.send({});//如果没错误则发送空对象到客户端
+            })
+        }
+    })
+});
+
 //获取我们文件系统中保存的所有用户
 //如果是异步方法，它是没有返回值，需要提供一个回调函数在内部会在任务完成后调用回调函数，并把结果传给回调函数
 //回调函数第一个参数一般是error对象，在 回调函数中可以判断error是否有值来判断是否出错了
