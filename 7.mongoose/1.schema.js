@@ -39,7 +39,6 @@ var personEntity = new personModel({
     email:'zhangsan@qq.com',
     gender:'男',
     home:'北京'
-
 });
 //把自己这个文档对象保存到数据库对应中的集合中
 personEntity.save().then(function(data){
