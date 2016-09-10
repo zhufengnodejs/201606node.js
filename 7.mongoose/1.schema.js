@@ -9,11 +9,16 @@ mongoose.connect('mongodb://localhost/201606node');
  * 定义Schema 不能操作数据库
  */
 var PersonSchema = new mongoose.Schema({
-   username:String,
-   email:String,
-   age:Number
+   username:{type:String,required:true},
+   gender:{type:String,enum:['男','女']},
+   email:{type:String,match:/[\s\S]+@[\s\S]+/},
+   age:{type:Number,min:0,max:160},
+   home:{type:String,validate:[valid,'必须是北京']}
     //手工指定集合的名称,如果不指定集合的名称，集合的名称就是模型的转小写再转复数
 });
+function valid(str){
+    return str == '北京';
+}
 /**
  * 模型 依赖Schema
  * 可以操作数据库 二个参数表示定义一个模型
@@ -30,9 +35,11 @@ var personModel = mongoose.model('Person');
  * schema中没有定义过，则进行忽略
  */
 var personEntity = new personModel({
-    username:'张三',
+    username:'zhangsan',
     email:'zhangsan@qq.com',
-    age:16
+    gender:'男',
+    home:'北京'
+
 });
 //把自己这个文档对象保存到数据库对应中的集合中
 personEntity.save().then(function(data){
@@ -41,6 +48,6 @@ personEntity.save().then(function(data){
     console.log(err);
 });
 
-
+console.log((4700).toString(16));
 
 
