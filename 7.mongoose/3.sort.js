@@ -13,9 +13,11 @@ var Model = {
         return this;
     },
     exec(callback){
-        var page = this.data.sort((a,b)=>(a-b)*this._order)
-            .slice(this._skip,this._skip+this._limit);
-        callback(page);
+       process.nextTick(()=>{
+           var page = this.data.sort((a,b)=>(a-b)*this._order)
+               .slice(this._skip,this._skip+this._limit);
+           callback(page);
+       })
         return this;
     }
 }
