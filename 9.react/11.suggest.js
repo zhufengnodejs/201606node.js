@@ -1,10 +1,45 @@
+function ajax({url=new Error('url必须提供!'),method='GET',data={},jsonp,dataType='json',processData=true,context}){
+  return new Promise(function(resolve,reject){
+        var xhr = new XMLHttpRequest;
+         //生成一个回调函数方法名
+        var cbMethod= `jQuery_${Date.now()}`;
+        url += (`?${jsonp}=${cbMethod}`);// cb=jQuery_1473758526782
+        if(processData){
+            var qs = [];
+            for(var attr in data){
+                qs.push(`${attr}=${data[attr]}`);//wd=a
+            }// qs = ['wd=a','bb=c']=> wd=a&bb=c
+            url += `&${qs.join('&')}`;
+        }
+        xhr.open(method,url,true);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(/2\d{2}/.test(xhr.status)){
+                    var result = xhr.responseText;
+                    console.log(result);
+                    //jQuery_1473758526782({"q":"","s":[]});
+                    if(dataType == 'jsonp'){
+                        var regex = new RegExp(`/${cbMethod}\((\{[\s\S]+\})\)/`) ;
+                        var matches  = result.match(regex);
+                        console.log(matches);
+                    }
+
+
+                }else{
+
+                }
+            }
+        }
+      xhr.send();
+  });
+}
 var Suggest = React.createClass({
     getInitialState(){
       return {items:[]}
     },
     handleChange(event){
         var wd = event.target.value;//取得输入框的值
-        $.ajax({
+        ajax({
             url:'https://www.baidu.com/su',
             method:'get',
             data:{wd},
