@@ -14,11 +14,20 @@ var MessageBox = React.createClass({
     handleClick(){
         this.setState({count:this.state.count+1});
     },
+    componentWillUnmount (){
+        console.log('componentDidUnmount');
+    },
+     kill(){
+      //在DOM容器节点上卸载组件
+      ReactDOM.unmountComponentAtNode(document.querySelector('#app'));
+    },
     render(){
         console.log('4. render 把组件渲染到DOM容器中');
         return <div>
-                     {this.state.count}
+                     计数:{this.state.count}
                      <button className="btn btn-primary" onClick={this.handleClick}>加1</button>
+            <button className="btn btn-primary" onClick={this.kill}>删除此组件</button>
+            <SubMessageBox count={this.state.count}></SubMessageBox>
                </div>
     },
     componentDidMount(){
@@ -37,6 +46,24 @@ var MessageBox = React.createClass({
     },
     componentDidUpdate(){
         console.log('8.componentDidUpdate 组件更新之后');
+    }
+});
+
+var SubMessageBox = React.createClass({
+    componentWillReceiveProps(){
+      console.log('componentWillReceiveProps 子组件将要收到新的属性');
+    },
+    shouldComponentUpdate(nextProps,nextState){
+        console.log('shouldComponentUpdate 子组件是否需要更新?');
+        if(nextProps.count>5){
+            return false;
+        }
+        return true;
+    },
+    render(){
+        return <div>
+                  子计数:{this.props.count}
+               </div>
     }
 });
 
