@@ -5,15 +5,14 @@
 var Message  = React.createClass({
     //会返回一个DOM结构
     //return 后面需要加一个小括号
+    //return 能且只能返回一个顶级元素
     render(){
-        return <div>
-                  欢迎光临
-               </div>
+        return <div>hello</div>
     }
 });
 //把此组件插入到DOM容器中
 ReactDOM.render(
-    <Message/>,
+    <Message></Message>,
     document.querySelector('#app')
 );
 
