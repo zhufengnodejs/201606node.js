@@ -16,17 +16,18 @@ function ajax({url=new Error('url必须提供!'),method='GET',data={},jsonp,data
             if(xhr.readyState == 4){
                 if(/2\d{2}/.test(xhr.status)){
                     var result = xhr.responseText;
-                    console.log(result);
                     //jQuery_1473758526782({"q":"","s":[]});
                     if(dataType == 'jsonp'){
-                        var regex = new RegExp(`/${cbMethod}\((\{[\s\S]+\})\)/`) ;
+                        var regex = new RegExp('\((\{.+\})\)') ;
                         var matches  = result.match(regex);
-                        console.log(matches);
+                        if(matches){
+                           result = matches[1];
+                        }
                     }
-
-
+                    result = JSON.parse(result);
+                    resolve(result);
                 }else{
-
+                    reject(xhr.responseText);
                 }
             }
         }
@@ -39,8 +40,9 @@ var Suggest = React.createClass({
     },
     handleChange(event){
         var wd = event.target.value;//取得输入框的值
+        var self=this;
         ajax({
-            url:'https://www.baidu.com/su',
+            url:'http://localhost:8080/su',
             method:'get',
             data:{wd},
             //指定后台读取方法名的参数名
@@ -51,7 +53,7 @@ var Suggest = React.createClass({
             //绑定回调函数的this指针
             context:this,
         }).then(function(data){
-            this.setState({
+            self.setState({
                 items:data.s.map((item,index)=><li className="list-group-item" key={index}>{item}</li>)
             });
         });

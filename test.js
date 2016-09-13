@@ -1,11 +1,5 @@
-var url = 'https://www.baidu.com/su?wd=a&cb=a';
-var http = require('http');
-var options = {
-    protocol:'http:',
-    host:'www.baidu.com',
-    method:'get',
-    path:'/su?wd=a&cb=a'
-};
-http.request(options,function(err,resonse,body){
-    console.log(arguments);
-})
+
+var  result = '({"q":"a","p":false,"s":["a_0","a_1","a_2","a_3","a_4","a_5","a_6","a_7","a_8","a_9"]})';
+var regex = new RegExp('\((\{.+\})\)') ;
+var matches  = result.match(regex);
+console.log(matches);
