@@ -10,6 +10,10 @@ ReactDOM.render(
         {
           names.map((item,index)=><div key={index}>hello:{item}</div>)
         }
+        <h1>dd</h1>
+        <h1>dd</h1>
+        <h1>dd</h1>
+        <h1>dd</h1>
     </div>,
     document.querySelector('#app')
 );
