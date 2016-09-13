@@ -41,8 +41,9 @@ var Suggest = React.createClass({
     handleChange(event){
         var wd = event.target.value;//取得输入框的值
         var self=this;
-        ajax({
-            url:'http://localhost:8080/su',
+        $.ajax({
+            //url:'http://localhost:8080/su',
+            url:'https://www.baidu.com/su',
             method:'get',
             data:{wd},
             //指定后台读取方法名的参数名
