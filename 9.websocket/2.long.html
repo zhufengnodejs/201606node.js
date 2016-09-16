@@ -8,27 +8,43 @@
 <div id="time"></div>
 </body>
 <script>
-    function send(){
-        return new Promise(function(resolve,reject){
-           setTimeout(function(){
-               var xhr = new XMLHttpRequest;
-               xhr.open('GET','http://localhost:9090/time',true);
-               xhr.onreadystatechange = function(){
-                   if(xhr.readyState == 4){
-                       if(/2\d{2}/.test(xhr.status)){
-                           resolve(xhr.responseText);
-                       }else{
-                           reject(xhr.responseText);
-                       }
-                   }
-               }
-               xhr.send();
-           },1000);
-        });
+    /*function send(){
+     var promise =  new Promise(function(resolve,reject){
+     setTimeout(function(){
+     var xhr = new XMLHttpRequest;
+     xhr.open('GET','http://localhost:9090/time',true);
+     xhr.onreadystatechange = function(){
+     if(xhr.readyState == 4){
+     if(/2\d{2}/.test(xhr.status)){
+     resolve(xhr.responseText);
+     }else{
+     reject(xhr.responseText);
+     }
+     }
+     }
+     xhr.send();
+     },1000);
+     });
+     promise.then(function(data){
+     document.querySelector('#time').innerHTML = data;
+     return send();
+     });
+     }
+     send();*/
+
+    function sendAjax() {
+        var xhr = new XMLHttpRequest;
+        xhr.open('GET', 'http://localhost:9090/time', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (/2\d{2}/.test(xhr.status)) {
+                    document.querySelector('#time').innerHTML = xhr.responseText;
+                    sendAjax();
+                }
+            }
+        }
+        xhr.send();
     }
-    send().then(function(data){
-        document.querySelector('#time').innerHTML = data;
-        return send();
-    });
+    sendAjax();
 </script>
 </html>
