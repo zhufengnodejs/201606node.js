@@ -17,6 +17,7 @@ io.on('connection',function(socket){
     //监听客户端的消息，
     socket.on('message',function(msg){
         console.log(msg);
+        socket.send('服务器说:'+msg);
     });
 });
 
