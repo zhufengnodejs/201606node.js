@@ -33,7 +33,6 @@
     window.onload = function(){
         var socket = io.connect('ws://localhost:9090/');
         socket.on('message',function(msgObj){
-            console.log(msgObj);
             var messages = document.querySelector('#messages');
             var message = document.createElement('li');
             message.className = 'list-group-item';
@@ -57,6 +56,10 @@
         window.join = function(roomName){
             socket.emit('join',roomName);
             var btn = document.querySelector('#'+roomName);
+            var btns = document.getElementsByTagName('button');
+            Array.from(btns).forEach(function(item){
+                item.className = item.className.replace('disabled','');
+            });
             btn.className = btn.className+' disabled';
         }
     }
