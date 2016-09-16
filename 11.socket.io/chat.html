@@ -5,6 +5,11 @@
     <title>珠峰聊天室</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        ul li span{
+            color:blue;
+        }
+    </style>
 </head>
 <body style="margin-top: 30px">
 <div class="container">
@@ -18,7 +23,7 @@
              </ul>
         </div>
         <div class="panel-footer">
-            <input id="content" type="text" class="form-control">
+            <input onkeydown="confirm(event)" id="content" type="text" class="form-control">
             <button onclick="send()" class="btn btn-primary">发言</button>
         </div>
     </div>
@@ -32,7 +37,7 @@
             var messages = document.querySelector('#messages');
             var message = document.createElement('li');
             message.className = 'list-group-item';
-            message.innerHTML = `${msgObj.username}:${msgObj.msg}`;
+            message.innerHTML = `<span>${msgObj.username}</span>:${msgObj.msg}`;
             messages.appendChild(message);
         });
 
@@ -40,6 +45,13 @@
             var content = document.querySelector('#content').value;
             socket.send(content);// socket.emit('message',content)
             document.querySelector('#content').value = '';
+        }
+        window.confirm = function(event){
+            //取得按下键的编码
+            var keyCode = event.which || event.keyCode;
+            if(keyCode == 13){ //如果是回车键的话
+                send();
+            }
         }
     }
 </script>
