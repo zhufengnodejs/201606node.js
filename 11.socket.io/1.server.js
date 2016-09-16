@@ -14,6 +14,7 @@ var io = require('socket.io')(server);
 io.on('connection',function(socket){
     //向客户端发出消息
     socket.send('欢迎你呀客户端!');
+    socket.emit('message','欢迎你呀客户端!');
     //监听客户端的消息，
     socket.on('message',function(msg){
         console.log(msg);
