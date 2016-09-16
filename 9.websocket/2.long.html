@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="time"></div>
+</body>
+<script>
+    function send(){
+        return new Promise(function(resolve,reject){
+           setTimeout(function(){
+               var xhr = new XMLHttpRequest;
+               xhr.open('GET','http://localhost:9090/time',true);
+               xhr.onreadystatechange = function(){
+                   if(xhr.readyState == 4){
+                       if(/2\d{2}/.test(xhr.status)){
+                           resolve(xhr.responseText);
+                       }else{
+                           reject(xhr.responseText);
+                       }
+                   }
+               }
+               xhr.send();
+           },1000);
+        });
+    }
+    send().then(function(data){
+        document.querySelector('#time').innerHTML = data;
+        return send();
+    });
+</script>
+</html>
