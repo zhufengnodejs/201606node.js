@@ -28,11 +28,11 @@
 <script>
     window.onload = function(){
         var socket = io.connect('ws://localhost:9090/');
-        socket.on('message',function(msg){
+        socket.on('message',function(msgObj){
             var messages = document.querySelector('#messages');
             var message = document.createElement('li');
             message.className = 'list-group-item';
-            message.innerHTML = msg;
+            message.innerHTML = `${msgObj.username}:${msgObj.msg}`;
             messages.appendChild(message);
         });
 
