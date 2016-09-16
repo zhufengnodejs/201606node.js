@@ -31,7 +31,14 @@ io.on('connection',function(socket){
     });
     //在服务器端进入不同的房间
     socket.on('join',function(roomName){
+        //当加入新房间的时候如果当前房间有值，则意味着已经在某个房间内了
+        if(currentRoom){
+            //离开某个房间
+            socket.leave(currentRoom);
+        }
         currentRoom = roomName;
+        //加入某个房间内
+        socket.join(roomName);
     })
 });
 
