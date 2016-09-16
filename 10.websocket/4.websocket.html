@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var socket = new WebSocket('ws://localhost:8080');
+    //当连接成功建立之后执行回调
+    socket.onopen = function(){
+        console.log('客户端已经连接!');
+        socket.send('服务器你好');
+    }
+    //当消息取回来之后，得到服务器发过来的消息之后执行回调
+    socket.onmessage = function(event){
+        console.log(event.data);
+    }
+</script>
+</html>
