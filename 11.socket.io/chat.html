@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>珠峰聊天室</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap.min.css">
     <style>
         ul li span{
@@ -15,8 +14,8 @@
 <div class="container">
     <div class="panel panel-success">
         <div class="panel-heading">
-            <button class="btn btn-warning">进入黄房间</button>
-            <button class="btn btn-danger">进入红房间</button>
+            <button onclick="join('yellow')" class="btn btn-warning">进入黄房间</button>
+            <button  onclick="join('red')" class="btn btn-danger">进入红房间</button>
         </div>
         <div class="panel-body">
              <ul id="messages" class="list-group">
@@ -34,6 +33,7 @@
     window.onload = function(){
         var socket = io.connect('ws://localhost:9090/');
         socket.on('message',function(msgObj){
+            console.log(msgObj);
             var messages = document.querySelector('#messages');
             var message = document.createElement('li');
             message.className = 'list-group-item';
@@ -52,6 +52,10 @@
             if(keyCode == 13){ //如果是回车键的话
                 send();
             }
+        }
+
+        window.join = function(roomName){
+            socket.emit('join',roomName);
         }
     }
 </script>
