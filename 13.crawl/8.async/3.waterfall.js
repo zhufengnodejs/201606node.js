@@ -5,8 +5,7 @@ waterfall([
     },
     function(data,callback){
         callback(null,data+'+咖啡');
-    }
-    ,
+    },
     function(data,callback){
         callback(null,data+'+牛奶');
     }
