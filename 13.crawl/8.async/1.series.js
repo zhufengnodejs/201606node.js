@@ -16,5 +16,17 @@ series([function (next) {
 })
 
 function series(tasks,callback){
-
+    let index = 0;
+    var result = [];
+    function next(err,data){
+        if(index>0)
+            result.push(data);
+        if(err)
+            return callback(err,result);
+        if(index==tasks.length)//如果迭代完毕了，则执行最终的回调
+            return callback(err,result);
+        var task = tasks[index++];
+        task(next);
+    }
+    next();
 }
