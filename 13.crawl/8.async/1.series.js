@@ -15,11 +15,11 @@ series([function (next) {
     console.timeEnd('cost');
 })
 
-function series(tasks,callback){
+/*function series(tasks,callback){
     let index = 0;
-    var result = [];
+    var result = [];//存放所有的结果
     function next(err,data){
-        if(index>0)
+        if(index>0) //从第二次next开始才接收data
             result.push(data);
         if(err)
             return callback(err,result);
@@ -27,6 +27,21 @@ function series(tasks,callback){
             return callback(err,result);
         var task = tasks[index++];
         task(next);
+    }
+    next();
+}*/
+
+function series(tasks,callback){
+    var result = [];//存放所有的结果
+    function next(err,data){
+        if(data)
+            result.push(data);
+        var task = tasks.shift();
+        if(task){
+            task(next);
+        }else{
+            callback(err,result);
+        }
     }
     next();
 }
