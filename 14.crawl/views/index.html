@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影风云榜</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="text-center">电影风云榜</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <%
+                   movies.forEach(function(movie){%>
+                      <li class="list-group-item">
+                          <a href="<%=movie.url%>"><%=movie.name%></a>
+                      </li>
+                <%});%>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

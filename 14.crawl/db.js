@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = Promise;
-var settings = require('../settings');
+var settings = require('./settings');
 mongoose.connect(settings.dbUrl);
 //定义schema
 var MovieSchema = new mongoose.Schema({
