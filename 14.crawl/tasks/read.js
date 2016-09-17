@@ -6,6 +6,7 @@
 var request = require('request');
 var iconv = require('iconv-lite');
 var fs = require('fs');
+var cheerio = require('cheerio');
 exports.read = function(url,callback){
   request({
       url,
@@ -15,8 +16,20 @@ exports.read = function(url,callback){
           callback(err);
       }else{
           var result = iconv.decode(body,'gbk');
-          fs.writeFile('./movie.html',result);
+          var $ = cheerio.load(result);
+          var items = [];
+          $('.keyword .list-title').each(function(){
+              var $me =  $(this);
+              var item = {
+                  name:$me.text(),
+                  url:$me.attr('href')
+              }
+              items.push(item);
+          });
+          callback(err,items);
       }
   })
 }
-exports.read('http://top.baidu.com/buzz?b=26&c=1&fr=topcategory_c1',function(){});
+exports.read('http://top.baidu.com/buzz?b=26&c=1&fr=topcategory_c1',function(err,items){
+    console.log(items);
+});
