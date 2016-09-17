@@ -1,16 +1,6 @@
-var mongoose = require('mongoose');
-mongoose.Promise = Promise;
-var settings = require('../settings');
-var debug = require('debug')('crawl:write');
-mongoose.connect(settings.dbUrl);
-//定义schema
-var MovieSchema = new mongoose.Schema({
-    name: String,
-    url: String
-});
-//定义模型
-var Movie = mongoose.model('Movie', MovieSchema);
+var Movie = require('../db');
 var async = require('async');
+var debug = require('debug')('crawl:write');
 /**
  * 负责把电影列表保存到mongodb数据库中
  * @param items 电影列表

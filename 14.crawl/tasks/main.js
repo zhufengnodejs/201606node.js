@@ -11,6 +11,7 @@ var write = require('./write').write;
 var async = require('async');
 var url = 'http://top.baidu.com/buzz?b=26&c=1&fr=topcategory_c1';
 var debug = require('debug')('crawl:main');
+// mongod --dbpath=./data
 async.waterfall([
    function(callback){
        read(url,function(err,items){
