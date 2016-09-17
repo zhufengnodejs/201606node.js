@@ -17,11 +17,13 @@ parallel([function (next) {
 
 function parallel(tasks,callback){
    var result = [];
+    var count =0;
    function next(i,err,data){
        if(err)
            return callback(err,result);
        result[i] = data;
-       if(result.length == tasks.length)
+       count++;
+       if(count == tasks.length)
            return callback(err,result);
    }
    for(var i=0;i<tasks.length;i++){
