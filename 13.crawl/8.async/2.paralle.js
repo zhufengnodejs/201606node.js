@@ -15,6 +15,17 @@ parallel([function (next) {
     console.timeEnd('cost');
 })
 
-function parallel(){
-
+function parallel(tasks,callback){
+   var result = [];
+   function next(i,err,data){
+       if(err)
+           return callback(err,result);
+       result[i] = data;
+       if(result.length == tasks.length)
+           return callback(err,result);
+   }
+   for(var i=0;i<tasks.length;i++){
+       var task = tasks[i];
+       task(next.bind(null,i));
+   }
 }
